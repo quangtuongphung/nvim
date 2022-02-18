@@ -51,7 +51,7 @@ end
 
 ------------------------------------
 -- 2 Essential Function:
-------------------------------------
+-----------------------------------
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -83,13 +83,23 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(
     bufnr,
     "n",
-    "gl",
-    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
+    "<CR>",
+    '<cmd>lua vim.diagnostic.open_float(0, {scope="line"}) <CR>',
     opts
   )
   vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+end
+
+local function lsp_popup_msg(bufnr)
+   -- LSP diagnostic automatically popup
+  vim.diagnostic.config({
+    virtual_text = false
+  })
+  -- Show line diagnostics automatically in hover window
+  vim.o.updatetime = 200
+  vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 end
 
 --on_attach Function
@@ -99,7 +109,16 @@ M.on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
   end
 
+  -- LSP diagnostic automatically popup
+--  vim.diagnostic.config({
+--    virtual_text = false
+--  })
+  -- Show line diagnostics automatically in hover window
+--  vim.o.updatetime = 300
+--  vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
   -- Do to all!!!
+  lsp_popup_msg(bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 end
