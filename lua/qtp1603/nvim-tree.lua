@@ -34,15 +34,17 @@ end
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 nvim_tree.setup {
+  --Disable :Lex
   disable_netrw = true,
   hijack_netrw = true,
-  pen_on_setup = false,
+
+  open_on_setup = false,
   ignore_ft_on_setup = {
     "startify",
     "dashboard",
     "alpha",
   },
-  auto_close = true,
+  auto_close = false, --Still open nvim-tree when q!
   open_on_tab = false,
   hijack_cursor = false,
   update_cwd = true,
@@ -60,8 +62,8 @@ nvim_tree.setup {
     },
   },
   update_focused_file = {
-    enable = true,
-    update_cwd = true,
+    enable = false,
+    update_cwd = false,
     ignore_list = {},
   },
   system_open = {
@@ -82,7 +84,7 @@ nvim_tree.setup {
     height = 30,
     hide_root_folder = false,
     side = "left",
-    auto_resize = true,
+    auto_resize = false,
     mappings = {
       custom_only = false,
       list = {

@@ -1,6 +1,6 @@
 -- Key Mapping Configuration
 
-local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = false }
 
 local term_opts = { silent = true }
 
@@ -20,14 +20,15 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+-- Normal --
+-- NvimTree 
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>r", ":NvimTreeRefresh<cr>", opts)
 keymap("n", "<leader>f", ":NvimTreeFindFile<cr>", opts)
 
-keymap("n", "<leader>", ":WhichKey '<Space>'<cr>", opts)
-
-
--- Normal --
+-- Telescope
+keymap("n", "<C-t>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<C-f>", "<cmd>Telescope find_files<cr>", opts)
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
