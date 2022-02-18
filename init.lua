@@ -23,4 +23,5 @@
 
   require "qtp1603.alpha"
   require "qtp1603.bufferline"
+  require "qtp1603.lualine"
 --  require "qtp1603.whichkey"
